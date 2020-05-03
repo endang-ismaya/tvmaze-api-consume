@@ -43,7 +43,7 @@ CountryIndex.getInitialProps = async ctx => {
   const { country } = ctx.query || 'us';
   try {
     const res = await axios.get(
-      `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
+      `https://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
     );
 
     return {

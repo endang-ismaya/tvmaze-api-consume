@@ -31,7 +31,7 @@ ShowId.getInitialProps = async ctx => {
   try {
     const { showId } = ctx.query;
     const res = await axios.get(
-      `http://api.tvmaze.com/shows/${showId}?embed=cast`
+      `https://api.tvmaze.com/shows/${showId}?embed=cast`
     );
 
     return {
