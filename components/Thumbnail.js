@@ -1,11 +1,20 @@
+import Link from 'next/link';
 import styles from './Thumbnail.module.css';
 
-const Thumbnail = ({imageUrl, caption}) => {
+const Thumbnail = ({ imageUrl, caption, href = '', as = '' }) => {
   return (
-    <div className="thumbnail">
-      <img src={imageUrl} alt={caption} className={styles.thumbnail__image} />
-      <h3 className={styles.thumbnail__caption}>{caption}</h3>
-    </div>
+    <Link href={href} as={as}>
+      <a href="#!">
+        <div className={styles.thumbnail}>
+          <img
+            src={imageUrl}
+            alt={caption}
+            className={styles.thumbnail__image}
+          />
+          <h3 className={styles.thumbnail__caption}>{caption}</h3>
+        </div>
+      </a>
+    </Link>
   );
 };
 

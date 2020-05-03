@@ -1,14 +1,24 @@
 import axios from 'axios';
+import Link from 'next/link';
 import Thumbnail from './../../components/Thumbnail';
 
-const CountryIndex = ({ shows }) => {
+const CountryIndex = ({ shows, country }) => {
   const renderShows = () => {
     return shows.map((showItem, idx) => {
-      const { image, name } = showItem.show;
+      const { image, name, id } = showItem.show;
 
       return (
         <li key={idx}>
-          <Thumbnail imageUrl={image ? image.medium : ''} caption={name} />
+          <Thumbnail
+            imageUrl={
+              image
+                ? image.medium
+                : 'https://via.placeholder.com/210x295?text=?'
+            }
+            caption={name}
+            href="/[country]/[showId]"
+            as={`/${country}/${id}`}
+          />
         </li>
       );
     });
@@ -16,13 +26,18 @@ const CountryIndex = ({ shows }) => {
 
   return (
     <React.Fragment>
-      <ul className="tvshows">{renderShows()}</ul>
+      <ul className="tvshows">
+        <Link href="/about">
+          <a href="#!">About</a>
+        </Link>
+        {renderShows()}
+      </ul>
     </React.Fragment>
   );
 };
 
 // run in server
-CountryIndex.getInitialProps = async (ctx) => {
+CountryIndex.getInitialProps = async ctx => {
   const { country } = ctx.query || 'us';
 
   const res = await axios.get(
@@ -31,6 +46,7 @@ CountryIndex.getInitialProps = async (ctx) => {
 
   return {
     shows: res.data,
+    country,
   };
 };
 
