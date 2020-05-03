@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import axios from 'axios';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
 import Error from 'next/error';
+import cookies from 'nookies';
 
 const CountryIndex = ({ shows, country }) => {
   const renderShows = () => {
@@ -40,7 +41,9 @@ const CountryIndex = ({ shows, country }) => {
 
 // run in server
 CountryIndex.getInitialProps = async ctx => {
-  const { country } = ctx.query || 'us';
+  const { defaultCountry } = cookies.get(ctx);
+  const country = ctx.query.country || defaultCountry || 'us';
+
   try {
     const res = await axios.get(
       `https://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
