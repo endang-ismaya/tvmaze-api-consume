@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import cookies from 'nookies';
 import CustomInput from './../components/customInput/CustomInput';
 import { useRouter } from 'next/router';
+import { validateEmail, validateRequired } from '../utils/validator';
 
 const initialState = {
   email: '',
@@ -14,13 +15,24 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
+  useEffect(() => {
+    setTimeout(() => {
+      setError('');
+    }, 3000);
+  }, [error]);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
     const { email, password } = signinInfo;
 
-    if (!email || !password) {
+    if (!validateRequired(email) || !validateRequired(password)) {
       setError('Email or Password are required fields');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError('Please provide a valid email address');
       return;
     }
 
