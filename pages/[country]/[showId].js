@@ -2,14 +2,12 @@ import { Fragment } from 'react';
 import axios from 'axios';
 import parse from 'html-react-parser';
 import Cast from './../../components/cast/Cast';
-import Header from './../../components/header/Header';
 
 const ShowId = ({ show }) => {
   const { name, image, summary, _embedded } = show;
 
   return (
     <Fragment>
-      <Header />
       <div className="show-details">
         <div
           className="show-details__poster"

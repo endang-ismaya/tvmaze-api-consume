@@ -28,12 +28,22 @@ p {
   margin: 0.2rem;
 }
 
+select {
+  padding: 0.3rem;
+  border-radius: 5px;
+}
+
 /* Header */
 .header {
   padding: 20px;
   background-color: #333;
   color: #fff;
   text-align: center;
+}
+
+/* Home */
+.home {
+  margin-top: 1rem;
 }
 
 /* ShowId */
@@ -70,7 +80,7 @@ p {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .tvshows li {
@@ -96,4 +106,5 @@ p {
 .thumbnail {
   width: 100px;
   text-decoration: none;
+  margin-bottom: 1.45rem;
 }
