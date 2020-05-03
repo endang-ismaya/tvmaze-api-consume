@@ -144,3 +144,12 @@ select {
   background-color: skyblue;
   font-size: 1.2rem;
 }
+
+/* Error */
+.error {
+  color: red;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid red;
+  margin-top: 1rem;
+}

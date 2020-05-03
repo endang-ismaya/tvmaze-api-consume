@@ -11,10 +11,18 @@ const initialState = {
 
 const SignIn = () => {
   const [signinInfo, setSigninInfo] = useState(initialState);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    const { email, password } = signinInfo;
+
+    if (!email || !password) {
+      setError('Email or Password are required fields');
+      return;
+    }
 
     try {
       const res = await axios.post(
@@ -28,7 +36,7 @@ const SignIn = () => {
 
       router.replace('/[country]', '/us');
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   };
 
@@ -39,8 +47,13 @@ const SignIn = () => {
     });
   };
 
+  const renderError = () => {
+    return error && <div className="error">{error}</div>;
+  };
+
   return (
     <div className="signin">
+      {renderError()}
       <h3>Sign In</h3>
       <form onSubmit={handleSubmit}>
         <CustomInput
