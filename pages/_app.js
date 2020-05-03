@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <Header />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Fragment>
   );
 }
