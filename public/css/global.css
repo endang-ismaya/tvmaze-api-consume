@@ -1,4 +1,23 @@
+/* ShowId */
 .show-details__poster {
   height: 200px;
   background-size: cover;
+}
+
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+/* Cast */
+.cast__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.cast__list li {
+  margin-right: 1rem;
 }

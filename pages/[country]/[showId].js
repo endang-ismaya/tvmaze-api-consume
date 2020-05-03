@@ -1,8 +1,9 @@
 import axios from 'axios';
 import parse from 'html-react-parser';
+import Cast from './../../components/cast/Cast';
 
 const ShowId = ({ show }) => {
-  const { name, image, summary } = show;
+  const { name, image, summary, _embedded } = show;
 
   return (
     <div className="show-details">
@@ -11,6 +12,7 @@ const ShowId = ({ show }) => {
         style={{ backgroundImage: `url(${image.original})` }}></div>
       <h1>{name}</h1>
       <section>{parse(summary)}</section>
+      <Cast cast={_embedded.cast} />
     </div>
   );
 };

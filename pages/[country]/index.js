@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import Thumbnail from './../../components/Thumbnail';
+import Thumbnail from '../../components/thumbnail/Thumbnail';
 
 const CountryIndex = ({ shows, country }) => {
   const renderShows = () => {

@@ -4,8 +4,9 @@
 
 .thumbnail__caption {
   text-align: center;
+  padding: 10px;
 }
 
 .thumbnail {
-  width: 400px;
+  width: 100px;
 }
