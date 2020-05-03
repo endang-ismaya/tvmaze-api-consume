@@ -1,9 +1,14 @@
 import { Fragment } from 'react';
 import axios from 'axios';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
+import Error from 'next/error';
 
 const CountryIndex = ({ shows, country }) => {
   const renderShows = () => {
+    if (shows.length <= 0) {
+      return <Error statusCode="400" />;
+    }
+
     return shows.map((showItem, idx) => {
       const { image, name, id } = showItem.show;
 
@@ -36,15 +41,21 @@ const CountryIndex = ({ shows, country }) => {
 // run in server
 CountryIndex.getInitialProps = async ctx => {
   const { country } = ctx.query || 'us';
+  try {
+    const res = await axios.get(
+      `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
+    );
 
-  const res = await axios.get(
-    `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
-  );
-
-  return {
-    shows: res.data,
-    country,
-  };
+    return {
+      shows: res.data,
+      country,
+    };
+  } catch (error) {
+    return {
+      shows: [],
+      country,
+    };
+  }
 };
 
 export default CountryIndex;
