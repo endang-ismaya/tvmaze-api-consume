@@ -3,6 +3,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Cast from './../../components/cast/Cast';
 import Error from 'next/error';
+import withAuthorization from './../../utils/withAuthorization';
 
 const ShowId = ({ show }) => {
   const { name, image, summary, _embedded } = show;
@@ -44,4 +45,4 @@ ShowId.getInitialProps = async ctx => {
   }
 };
 
-export default ShowId;
+export default withAuthorization(ShowId);

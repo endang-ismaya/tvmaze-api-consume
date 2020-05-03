@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import axios from 'axios';
+import CustomInput from './../components/customInput/CustomInput';
 
 const initialState = {
   email: '',
@@ -8,8 +10,15 @@ const initialState = {
 const SignIn = () => {
   const [signinInfo, setSigninInfo] = useState(initialState);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    const res = await axios.post(
+      'https://iwallet-api.herokuapp.com/api/auth/signin',
+      { ...signinInfo }
+    );
+
+    console.log(res);
   };
 
   const handleChange = e => {
@@ -22,19 +31,19 @@ const SignIn = () => {
   return (
     <div className="signin">
       <form onSubmit={handleSubmit}>
-        <input
+        <CustomInput
           name="email"
-          placeholder="Enter email"
           type="email"
+          placeholder="Enter email"
           value={signinInfo.email}
           onChange={handleChange}
         />
-        <input
+        <CustomInput
           name="password"
-          placeholder="Enter password"
           type="password"
-          onChange={handleChange}
+          placeholder="Enter password"
           value={signinInfo.password}
+          onChange={handleChange}
         />
         <input type="submit" value="Submit" />
       </form>
