@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Thumbnail from '../../components/thumbnail/Thumbnail';
@@ -25,14 +26,14 @@ const CountryIndex = ({ shows, country }) => {
   };
 
   return (
-    <React.Fragment>
-      <ul className="tvshows">
-        <Link href="/about">
-          <a href="#!">About</a>
-        </Link>
-        {renderShows()}
-      </ul>
-    </React.Fragment>
+    <Fragment>
+      <Link href="/about">
+        <a href="#!">About</a>
+      </Link>
+      <div>
+        <ul className="tvshows">{renderShows()}</ul>
+      </div>
+    </Fragment>
   );
 };
 

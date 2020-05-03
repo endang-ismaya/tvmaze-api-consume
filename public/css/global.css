@@ -1,12 +1,20 @@
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover h3 {
+  text-decoration: underline;
+}
+
 /* ShowId */
 .show-details__poster {
   height: 200px;
   background-size: cover;
-}
-
-li {
-  text-decoration: none;
-  list-style-type: none;
 }
 
 /* Cast */
@@ -20,4 +28,30 @@ li {
 
 .cast__list li {
   margin-right: 1rem;
+}
+
+.tvshows {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.tvshows li {
+  margin-right: 1rem;
+}
+
+/* Thumbnail */
+.thumbnail__image {
+  width: 100%;
+}
+
+.thumbnail__caption {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.thumbnail {
+  width: 100px;
+  text-decoration: none;
 }

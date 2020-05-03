@@ -17,8 +17,11 @@ const ShowId = ({ show }) => {
   );
 };
 
-ShowId.getInitialProps = async () => {
-  const res = await axios.get(`http://api.tvmaze.com/shows/1?embed=cast`);
+ShowId.getInitialProps = async ctx => {
+  const { showId } = ctx.query;
+  const res = await axios.get(
+    `http://api.tvmaze.com/shows/${showId}?embed=cast`
+  );
 
   return {
     show: res.data,
