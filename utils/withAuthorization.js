@@ -5,6 +5,16 @@ import Router from 'next/router';
 const authenticate = ctx => {
   const { token } = cookies.get(ctx);
 
+  cookies.set(
+    ctx,
+    'plannedRoute',
+    JSON.stringify({
+      as: ctx.asPath,
+      href: ctx.pathname,
+    }),
+    { path: '/' }
+  );
+
   // ctx.req -> coming from server side
   // checking if cookie is present
   // if not present, redirect user to signin page

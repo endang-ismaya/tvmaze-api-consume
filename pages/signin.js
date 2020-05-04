@@ -50,7 +50,15 @@ const SignIn = () => {
         path: '/',
       });
 
-      router.replace('/[country]', '/us');
+      // get the last visit
+      const { plannedRoute } = cookies.get();
+      const parsedPlannedRoute = plannedRoute && JSON.parse(plannedRoute);
+      const plannedHrefRoute = parsedPlannedRoute
+        ? parsedPlannedRoute.href
+        : '/[country]';
+      const plannedAsRoute = parsedPlannedRoute ? parsedPlannedRoute.as : '/us';
+
+      router.replace(plannedHrefRoute, plannedAsRoute);
     } catch (error) {
       setError(error.message);
       setLoading(false);

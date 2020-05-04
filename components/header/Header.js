@@ -57,7 +57,7 @@ const Header = () => {
         {renderCountries()}
       </select>
       {isAuth() ? (
-        <Link href="/[country]" as="/us">
+        <Link href="/[country]" as={`/${country}`}>
           <a href="#!" onClick={handleSignout}>
             Sign Out
           </a>
