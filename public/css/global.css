@@ -110,27 +110,32 @@ select {
 }
 
 /* signin form */
-.signin {
+.signin,
+.signup {
   max-width: 55%;
   margin: 0 auto;
 }
 
-.signin h3 {
+.signin h3,
+.signup h3 {
   text-align: center;
   margin: 1.2rem 0;
   font-size: 1.8rem;
   color: cadetblue;
 }
 
-.signin form {
+.signin form,
+.signup form {
   margin-top: 1rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 
-.signin form input {
+.signin form input,
+.signup form input {
   display: block;
   margin-bottom: 1rem;
   padding: 10px;
@@ -139,7 +144,8 @@ select {
   outline: none;
 }
 
-.signin form input[type='submit'] {
+.signin form input[type='submit'],
+.signup form input[type='submit'] {
   cursor: pointer;
   background-color: skyblue;
   font-size: 1.2rem;

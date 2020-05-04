@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import cookies from 'nookies';
-import CustomInput from './../components/customInput/CustomInput';
-import { useRouter } from 'next/router';
-import { validateEmail, validateRequired } from '../utils/validator';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import CustomInput from './../components/customInput/CustomInput';
+import { validateEmail, validateRequired } from '../utils/validator';
 
 const initialState = {
+  name: '',
   email: '',
   password: '',
 };
 
-const SignIn = () => {
-  const [signinInfo, setSigninInfo] = useState(initialState);
+const SignUp = () => {
+  const [signupInfo, setSignupInfo] = useState(initialState);
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -25,10 +26,14 @@ const SignIn = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const { email, password } = signinInfo;
+    const { email, password, name } = signupInfo;
 
-    if (!validateRequired(email) || !validateRequired(password)) {
-      setError('Email or Password are required fields');
+    if (
+      !validateRequired(email) ||
+      !validateRequired(password) ||
+      !validateRequired(name)
+    ) {
+      setError('Please fill all fields.');
       return;
     }
 
@@ -40,7 +45,7 @@ const SignIn = () => {
     try {
       const res = await axios.post(
         'https://iwallet-api.herokuapp.com/api/auth/signin',
-        { ...signinInfo }
+        { ...signupInfo }
       );
 
       cookies.set(null, 'token', res.data.token, {
@@ -54,8 +59,8 @@ const SignIn = () => {
   };
 
   const handleChange = e => {
-    setSigninInfo({
-      ...signinInfo,
+    setSignupInfo({
+      ...signupInfo,
       [e.target.name]: e.target.value,
     });
   };
@@ -65,31 +70,38 @@ const SignIn = () => {
   };
 
   return (
-    <div className="signin">
+    <div className="signup">
       {renderError()}
-      <h3>Sign In</h3>
+      <h3>Sign Up</h3>
       <form onSubmit={handleSubmit}>
+        <CustomInput
+          name="name"
+          type="text"
+          placeholder="Enter name"
+          value={signupInfo.name}
+          onChange={handleChange}
+        />
         <CustomInput
           name="email"
           type="email"
           placeholder="Enter email"
-          value={signinInfo.email}
+          value={signupInfo.email}
           onChange={handleChange}
         />
         <CustomInput
           name="password"
           type="password"
           placeholder="Enter password"
-          value={signinInfo.password}
+          value={signupInfo.password}
           onChange={handleChange}
         />
-        <input type="submit" value="Submit" />
-        <Link href="/signup">
-          <a href="#!">Create an account?</a>
+        <input type="submit" value="Create Account" />
+        <Link href="/signin">
+          <a href="#!">Have an account?login ...</a>
         </Link>
       </form>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;
