@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
+import Link from 'next/link';
+import { isAuth } from './../../utils/withAuthorization';
 
 const countries = [
   {
@@ -48,6 +50,15 @@ const Header = () => {
       <select onChange={handleChange} value={country}>
         {renderCountries()}
       </select>
+      {isAuth() ? (
+        <Link href="/us">
+          <a href="#!">Sign Out</a>
+        </Link>
+      ) : (
+        <Link href="/signin">
+          <a href="#!">Sign In</a>
+        </Link>
+      )}
     </div>
   );
 };

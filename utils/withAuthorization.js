@@ -20,6 +20,12 @@ const authenticate = ctx => {
   return token;
 };
 
+export const isAuth = ctx => {
+  const { token } = cookies.get(ctx);
+
+  return token;
+};
+
 const withAuthorization = WrappedComponent => {
   return class extends Component {
     static async getInitialProps(ctx) {

@@ -41,6 +41,20 @@ select {
   text-align: center;
 }
 
+.header > a {
+  color: #fff;
+  float: right;
+}
+
+.header > a::after {
+  content: '';
+  clear: both;
+}
+
+.header a:hover {
+  color: aquamarine;
+}
+
 /* Home */
 .home {
   margin-top: 1rem;
