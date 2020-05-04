@@ -10,7 +10,7 @@ const authenticate = ctx => {
   // if not present, redirect user to signin page
   if (ctx.req && !token) {
     ctx.res.writeHead(302, { Location: `/signin` });
-    return ctx.end();
+    return ctx.res.end();
   }
 
   if (!token) {
