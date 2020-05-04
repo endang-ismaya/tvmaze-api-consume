@@ -88,6 +88,12 @@ select {
 }
 
 /* Thumbnail */
+.thumbnail {
+  width: 100px;
+  text-decoration: none;
+  margin: 1.25rem 1rem;
+}
+
 .thumbnail__image {
   width: 100%;
   margin: 0;
@@ -96,6 +102,7 @@ select {
 .thumbnail__caption {
   text-align: center;
   font-weight: lighter;
+  font-size: 0.8rem;
 }
 
 .thumbnail__caption h3 {
@@ -103,16 +110,10 @@ select {
   padding: 0;
 }
 
-.thumbnail {
-  width: 100px;
-  text-decoration: none;
-  margin-bottom: 1.45rem;
-}
-
 /* signin form */
 .signin,
 .signup {
-  max-width: 55%;
+  max-width: 35%;
   margin: 0 auto;
 }
 
@@ -128,6 +129,7 @@ select {
 .signup form {
   margin-top: 1rem;
   width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,4 +160,12 @@ select {
   text-align: center;
   border: 1px solid red;
   margin-top: 1rem;
+}
+
+/* loader */
+.loader {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 2.5rem;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import cookies from 'nookies';
 import Link from 'next/link';
@@ -15,6 +15,8 @@ const initialState = {
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState(initialState);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -42,9 +44,11 @@ const SignUp = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const res = await axios.post(
-        'https://iwallet-api.herokuapp.com/api/auth/signin',
+        'https://iwallet-api.herokuapp.com/api/auth/signup',
         { ...signupInfo }
       );
 
@@ -56,6 +60,8 @@ const SignUp = () => {
     } catch (error) {
       setError(error.message);
     }
+
+    setLoading(false);
   };
 
   const handleChange = e => {
@@ -69,37 +75,47 @@ const SignUp = () => {
     return error && <div className="error">{error}</div>;
   };
 
+  const renderLoader = () => {
+    return <img src="/img/Preloader_3.gif" alt="loader" className="loader" />;
+  };
+
   return (
     <div className="signup">
       {renderError()}
-      <h3>Sign Up</h3>
-      <form onSubmit={handleSubmit}>
-        <CustomInput
-          name="name"
-          type="text"
-          placeholder="Enter name"
-          value={signupInfo.name}
-          onChange={handleChange}
-        />
-        <CustomInput
-          name="email"
-          type="email"
-          placeholder="Enter email"
-          value={signupInfo.email}
-          onChange={handleChange}
-        />
-        <CustomInput
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={signupInfo.password}
-          onChange={handleChange}
-        />
-        <input type="submit" value="Create Account" />
-        <Link href="/signin">
-          <a href="#!">Have an account?login ...</a>
-        </Link>
-      </form>
+      {loading ? (
+        renderLoader()
+      ) : (
+        <Fragment>
+          <h3>Sign Up</h3>
+          <form onSubmit={handleSubmit}>
+            <CustomInput
+              name="name"
+              type="text"
+              placeholder="Enter name"
+              value={signupInfo.name}
+              onChange={handleChange}
+            />
+            <CustomInput
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={signupInfo.email}
+              onChange={handleChange}
+            />
+            <CustomInput
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              value={signupInfo.password}
+              onChange={handleChange}
+            />
+            <input type="submit" value="Create Account" />
+            <Link href="/signin">
+              <a href="#!">Have an account? login here...</a>
+            </Link>
+          </form>
+        </Fragment>
+      )}
     </div>
   );
 };

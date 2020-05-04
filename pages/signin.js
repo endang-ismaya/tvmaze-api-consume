@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import cookies from 'nookies';
 import CustomInput from './../components/customInput/CustomInput';
@@ -14,6 +14,7 @@ const initialState = {
 const SignIn = () => {
   const [signinInfo, setSigninInfo] = useState(initialState);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,6 +38,8 @@ const SignIn = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const res = await axios.post(
         'https://iwallet-api.herokuapp.com/api/auth/signin',
@@ -50,6 +53,7 @@ const SignIn = () => {
       router.replace('/[country]', '/us');
     } catch (error) {
       setError(error.message);
+      setLoading(false);
     }
   };
 
@@ -64,30 +68,40 @@ const SignIn = () => {
     return error && <div className="error">{error}</div>;
   };
 
+  const renderLoader = () => {
+    return <img src="/img/Preloader_3.gif" alt="loader" className="loader" />;
+  };
+
   return (
     <div className="signin">
       {renderError()}
-      <h3>Sign In</h3>
-      <form onSubmit={handleSubmit}>
-        <CustomInput
-          name="email"
-          type="email"
-          placeholder="Enter email"
-          value={signinInfo.email}
-          onChange={handleChange}
-        />
-        <CustomInput
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={signinInfo.password}
-          onChange={handleChange}
-        />
-        <input type="submit" value="Submit" />
-        <Link href="/signup">
-          <a href="#!">Create an account?</a>
-        </Link>
-      </form>
+      {loading ? (
+        renderLoader()
+      ) : (
+        <Fragment>
+          <h3>Sign In</h3>
+          <form onSubmit={handleSubmit}>
+            <CustomInput
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={signinInfo.email}
+              onChange={handleChange}
+            />
+            <CustomInput
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              value={signinInfo.password}
+              onChange={handleChange}
+            />
+            <input type="submit" value="Submit" />
+            <Link href="/signup">
+              <a href="#!">Create an account?</a>
+            </Link>
+          </form>
+        </Fragment>
+      )}
     </div>
   );
 };
