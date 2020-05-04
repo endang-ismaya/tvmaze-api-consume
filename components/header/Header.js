@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { setCookie } from 'nookies';
+import cookies, { setCookie } from 'nookies';
 import Link from 'next/link';
 import { isAuth } from './../../utils/withAuthorization';
 
@@ -25,10 +25,12 @@ const Header = () => {
   const [country, setCountry] = useState(router.query.country);
 
   useEffect(() => {
-    setCookie(null, 'defaultCountry', country, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
+    if (country) {
+      setCookie(null, 'defaultCountry', country, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/',
+      });
+    }
   }, [country]);
 
   const handleChange = e => {
@@ -45,14 +47,20 @@ const Header = () => {
     ));
   };
 
+  const handleSignout = () => {
+    cookies.destroy(null, 'token');
+  };
+
   return (
     <div className="header">
       <select onChange={handleChange} value={country}>
         {renderCountries()}
       </select>
       {isAuth() ? (
-        <Link href="/us">
-          <a href="#!">Sign Out</a>
+        <Link href="/[country]" as="/us">
+          <a href="#!" onClick={handleSignout}>
+            Sign Out
+          </a>
         </Link>
       ) : (
         <Link href="/signin">

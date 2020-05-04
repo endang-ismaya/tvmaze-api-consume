@@ -12,9 +12,6 @@ const Home = () => {
 Home.getInitialProps = ctx => {
   const { defaultCountry } = cookies.get(ctx);
   let country = ctx.query.country || defaultCountry || 'us';
-  if (country === 'undefined') {
-    country = 'us';
-  }
 
   process.browser
     ? Router.replace('/[country]', `${country}`)

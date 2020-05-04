@@ -43,9 +43,6 @@ const CountryIndex = ({ shows, country }) => {
 CountryIndex.getInitialProps = async ctx => {
   const { defaultCountry } = cookies.get(ctx);
   let country = ctx.query.country || defaultCountry || 'us';
-  if (country === 'undefined') {
-    country = 'us';
-  }
 
   try {
     const res = await axios.get(
