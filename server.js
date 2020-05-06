@@ -12,6 +12,13 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  // cast/:personId
+
+  server.get('/cast/:personId', (req, res) => {
+    const { personId } = req.params;
+    return app.render(req, res, '/cast', { personId });
+  });
+
   server.all('*', (req, res) => {
     return handle(req, res);
   });
